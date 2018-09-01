@@ -11,6 +11,22 @@ import {
   TableSortProps,
 } from '../..';
 
+export function debounce(func: any, wait: number, immediate?: boolean) {
+  let timeout: number | undefined;
+  return function(this: any, ...args: any[]) {
+    const context = this;
+
+    var later = function() {
+      timeout = undefined;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
 export function filterByQueryString<T>(
   members: T[],
   queryString?: string,

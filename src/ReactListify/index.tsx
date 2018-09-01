@@ -1,17 +1,24 @@
 import * as React from 'react';
 
 import { FilterFunction, ListifyProps, MembersCache, SortDirection } from '../../';
-import { filterByQueryString, paginate, sort } from '../utils';
+import { debounce, filterByQueryString, paginate, sort } from '../utils';
 
-type State = {
+type State<T> = {
   pageNumber: number;
   queryString: string;
   activeFilters: string[];
   sortDirection?: SortDirection;
   sortColumn?: string;
+  displayedCount: number;
+  slicedMembers: T[];
+  numPages: number;
+  displayingFrom: number;
+  displayingTo: number;
+  activePage: number;
+  filteredCount: number;
 };
 
-class Listify<T> extends React.Component<ListifyProps<T>, State> {
+class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
     members: [],
     initialPageNumber: 1,
@@ -19,8 +26,6 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
     initialActiveFilters: [],
     sortProps: {},
   };
-
-  membersReference: T[] = this.props.members;
 
   constructor(props: ListifyProps<T>) {
     super(props);
@@ -30,43 +35,49 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
       activeFilters: this.props.initialActiveFilters!,
       sortDirection: this.props.initialSortDirection,
       sortColumn: undefined,
+      slicedMembers: [],
+      filteredCount: 0,
+      displayedCount: 0,
+      numPages: 1,
+      displayingFrom: 0,
+      displayingTo: 0,
+      activePage: 1,
     };
+    this._relistify = debounce(this._relistify, 150);
   }
 
-  // TODO remove
-  getCacheKey = (): string => {
-    const { queryString } = this.state;
-    return `${queryString}-${this.getSortCacheKey()}`;
-  };
+  componentDidMount() {
+    this._relistify(this.props.members);
+  }
 
-  // TODO remove
-  getSortCacheKey = (): string => {
-    const { sortDirection, sortColumn } = this.state;
-    return `${sortDirection || ''}-${sortColumn || ''}`;
-  };
+  membersReference: T[] = this.props.members;
 
-  sortingCache: MembersCache<T> = {
-    [this.getSortCacheKey()]: this.props.members,
-  };
+  sortingCache: MembersCache<T> = {};
 
-  queryStringCache: MembersCache<T> = {
-    [this.getCacheKey()]: this.props.members,
-  };
+  queryStringCache: MembersCache<T> = {};
 
-  shouldComponentUpdate(nextProps: ListifyProps<T>, _: State) {
+  shouldComponentUpdate(nextProps: ListifyProps<T>, _: State<T>) {
     if (nextProps.members !== this.membersReference) {
-      this.queryStringCache = { [this.getCacheKey()]: nextProps.members };
-      this.sortingCache = { [this.getSortCacheKey()]: nextProps.members };
       this.membersReference = nextProps.members;
+      this._relistify(nextProps.members);
     }
     return true;
   }
 
-  setPageNumber = (pageNumber: number) => this.setState({ pageNumber });
+  setPageNumber = (pageNumber: number) => {
+    this.setState({ pageNumber });
+    this._relistify(this.props.members);
+  };
 
-  setQueryString = (queryString: string) => this.setState({ queryString });
+  setQueryString = (queryString: string) => {
+    this.setState({ queryString });
+    this._relistify(this.props.members);
+  };
 
-  clearFilters = () => this.setState({ activeFilters: [] });
+  clearFilters = () => {
+    this.setState({ activeFilters: [] });
+    this._relistify(this.props.members);
+  };
 
   toggleFilter = (filter: string) => {
     const { activeFilters } = this.state;
@@ -75,6 +86,7 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
       : activeFilters.filter(x => x !== filter);
 
     this.setState({ activeFilters: newFilters });
+    this._relistify(this.props.members);
   };
 
   setSort = (clickedColumn?: string): void => {
@@ -89,12 +101,10 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
         sortDirection: sortDirection === 'asc' ? 'desc' : 'asc',
       });
     }
+    this._relistify(this.props.members);
   };
 
-  /*TODO call this debounced
-  _relistify(): void {
-    const { members } = this.props;
-
+  _relistify(members: T[]): void {
     let modifiedMembers = this._sort(members);
     modifiedMembers = this._queryStringFilter(modifiedMembers);
     modifiedMembers = this._customFilter(modifiedMembers);
@@ -103,10 +113,9 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
       modifiedMembers,
     );
 
-   
     this.setState({
       displayedCount: slicedMembers.length,
-      members: slicedMembers,
+      slicedMembers,
       numPages,
       displayingFrom,
       displayingTo,
@@ -114,7 +123,6 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
       filteredCount: modifiedMembers.length,
     });
   }
-   */
 
   _queryStringFilter(members: T[]): T[] {
     const { queryString, sortColumn, sortDirection } = this.state;
@@ -122,9 +130,9 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
 
     return filterByQueryString(
       members,
-      this.queryStringCache,
       queryString,
       queryStringFilter,
+      this.queryStringCache,
       sortColumn,
       sortDirection,
     );
@@ -158,35 +166,38 @@ class Listify<T> extends React.Component<ListifyProps<T>, State> {
 
   render() {
     const { children, members } = this.props;
-    const { queryString, activeFilters, sortColumn, sortDirection } = this.state;
     const initialCount = members.length;
-
-    let modifiedMembers = this._sort(members);
-    modifiedMembers = this._queryStringFilter(modifiedMembers);
-    modifiedMembers = this._customFilter(modifiedMembers);
-
-    const { slicedMembers, numPages, displayingFrom, displayingTo, activePage } = this._paginate(
-      modifiedMembers,
-    );
+    const {
+      queryString,
+      activeFilters,
+      sortColumn,
+      sortDirection,
+      slicedMembers,
+      numPages,
+      displayingFrom,
+      activePage,
+      displayingTo,
+      filteredCount,
+    } = this.state;
 
     return children({
-      members: slicedMembers,
+      sortColumn,
+      sortDirection,
+      activeFilters,
       initialCount,
-      displayedCount: slicedMembers.length,
       numPages,
       displayingFrom,
       displayingTo,
       activePage,
-      filteredCount: modifiedMembers.length,
-      setPageNumber: this.setPageNumber,
+      filteredCount,
       queryString,
+      setPageNumber: this.setPageNumber,
       setQueryString: this.setQueryString,
-      activeFilters,
+      members: slicedMembers,
+      displayedCount: slicedMembers.length,
       toggleFilter: this.toggleFilter,
       clearFilters: this.clearFilters,
       setSort: this.setSort,
-      sortColumn,
-      sortDirection,
     });
   }
 }
