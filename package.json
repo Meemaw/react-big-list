@@ -1,6 +1,6 @@
 {
   "name": "react-big-list",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Smart wrapper component for your big collections.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
     "url": "https://github.com/Meemaw/react-big-list/issues"
   },
   "scripts": {
-    "build": "rm -rf ./lib && tsc",
+    "build": "rm -rf ./dist && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "test": "jest",
     "prepare": "yarn build",
