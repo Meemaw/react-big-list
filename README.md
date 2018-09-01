@@ -18,6 +18,11 @@
         src='https://coveralls.io/repos/github/Meemaw/react-big-list/badge.svg?branch=feature%2Fcoveralls_integration'/>
   </a>
 
+  <a href="https://github.com/Meemaw/Photomy#contributors">
+    <img 
+      src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square" />
+  </a>
+
   <a href="http://makeapullrequest.com">
     <img
          src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" />
@@ -100,6 +105,20 @@ yarn add react-big-list
 yarn test
 ```
 
+### [Contributors][contributors]
+
+Thanks goes to these people ([emoji key][emojis]):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/8524109?s=460&v=4" width="100px;"/><br /><sub><b>Meemaw</b></sub>](https://github.com/Meemaw)<br />[💻](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Code") [📖](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Tests")|
+| :---: | :---: |
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][all-contributors] specification.
+Contributions of any kind welcome!
+
 [about]: https://github.com/Meemaw/react-big-list#about
 [motivation]: https://github.com/Meemaw/react-big-list#motivation
 [tests]: https://github.com/Meemaw/react-big-list/tree/master/tests
@@ -107,3 +126,6 @@ yarn test
 [installation]: https://github.com/Meemaw/react-big-list#installation
 [testing]: https://github.com/Meemaw/react-big-list#testing
 [usage]: https://github.com/Meemaw/react-big-list#usage
+[playground]: https://github.com/Meemaw/react-big-list#playground
+[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
+[contributors]: https://github.com/Meemaw/react-big-list#contributors
