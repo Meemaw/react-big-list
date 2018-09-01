@@ -8,6 +8,6 @@ storiesOf('ReactBigList - combined', module)
   .add('List', () => {
     return <ListWrapper />;
   })
-  .add('Async table', () => {
+  .add('Async crypto table', () => {
     return <TableWrapper />;
   });
