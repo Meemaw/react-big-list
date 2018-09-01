@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { FilterFunction, ListifyProps, MembersCache, SortDirection } from '../types';
-import { debounce, filterByQueryString, paginate, sort } from '../utils';
+import { ListifyProps, MembersCache, SortDirection } from '../types';
+import { applyFilters, debounce, filterByQueryString, paginate, sort } from '../utils';
 
 type State<T> = {
   pageNumber: number;
@@ -170,17 +170,9 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   }
 
   _customFilter(members: T[]) {
-    const { customFilterProps } = this.props;
-    if (!customFilterProps || !customFilterProps.filterMap) {
-      return members;
-    }
     const { activeFilters } = this.state;
-    const { filterMap } = customFilterProps;
-
-    return activeFilters.reduce((accMembers, filterName) => {
-      const filterFunction: FilterFunction<T> = filterMap[filterName];
-      return filterFunction ? filterFunction(accMembers) : accMembers;
-    }, members);
+    const { customFilterProps } = this.props;
+    return applyFilters(members, activeFilters, customFilterProps);
   }
 
   render() {

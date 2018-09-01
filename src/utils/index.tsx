@@ -1,6 +1,8 @@
 import orderBy = require('lodash.orderby');
 
 import {
+  CustomFilterProps,
+  FilterFunction,
   ListSortProps,
   MembersCache,
   PaginationProps,
@@ -134,6 +136,22 @@ export function paginate<T>(members: T[], pageNumber: number, paginationProps?: 
   displayingFrom = numMembers === 0 ? 0 : (activePage - 1) * pageSize! + 1;
 
   return { slicedMembers, numPages, displayingFrom, displayingTo, activePage };
+}
+
+export function applyFilters<T>(
+  members: T[],
+  activeFilters: string[],
+  customFilterProps?: CustomFilterProps<T>,
+) {
+  if (!customFilterProps || !customFilterProps.filterMap) {
+    return members;
+  }
+  const { filterMap } = customFilterProps;
+
+  return activeFilters.reduce((accMembers, filterName) => {
+    const filterFunction: FilterFunction<T> = filterMap[filterName];
+    return filterFunction ? filterFunction(accMembers) : accMembers;
+  }, members);
 }
 
 function isEmpty(s?: string | null) {
