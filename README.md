@@ -58,7 +58,7 @@ Sometimes backend API's doesn't support features like sorting/pagination/filteri
 
 ### [Live Playground][playground]
 
-For examples of the datepicker in action, go to https://Meemaw.github.io/react-big-list/.
+For examples of the datepicker in action, go to [https://Meemaw.github.io/react-big-list/][storybook-link].
 
 OR
 
@@ -145,3 +145,4 @@ Contributions of any kind welcome!
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [contributors]: https://github.com/Meemaw/react-big-list#contributors
 [all-contributors]: https://github.com/kentcdodds/all-contributors
+[storybook-link]: https://meemaw.github.io/react-big-list/?selectedKind=ReactBigList%20-%20combined&selectedStory=Async%20crypto%20table&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybooks%2Fstorybook-addon-knobs
