@@ -6,6 +6,22 @@
   "types": "dist/index.d.ts",
   "author": "Meemaw <ematej.snuderl@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "Collections",
+    "Smart",
+    "Pagination",
+    "Sorting",
+    "Filtering",
+    "Caching"
+  ],
+  "homepage": "https://github.com/Meemaw/react-big-list#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meemaw/react-big-list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Meemaw/react-big-list/issues"
+  },
   "scripts": {
     "build": "rm -rf ./lib && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
