@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Label, Loader, Menu, Pagination, Table } from 'semantic-ui-react';
 
-import ReactListify, { withCustomFilters, withPageSize } from '../src';
+import ReactBigList, { withCustomFilters, withPageSize } from '../src';
 import { renderCombinedHeader } from './helpers';
 import { customFilterMap, filterOptions } from './tableFilters';
 
-let Enhanced = withCustomFilters(ReactListify, customFilterMap);
+let Enhanced = withCustomFilters(ReactBigList, customFilterMap);
 Enhanced = withPageSize(Enhanced, 9);
 
 const headerOptions = [

@@ -20,7 +20,7 @@ type State<T> = {
 
 const DEFAULT_DEBOUNCE_TIME = 150; // 150ms
 
-class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
+class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
     members: [],
     initialPageNumber: 1,
@@ -215,4 +215,4 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
   }
 }
 
-export default Listify;
+export default ReactBigList;

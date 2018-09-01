@@ -1,4 +1,4 @@
-import ReactListify, { withCustomFilters } from '../src';
+import ReactBigList, { withCustomFilters } from '../src';
 
 export const customFilterMap = {
   'Positive last 1h': members => members.filter(coin => coin.quotes.USD.percent_change_1h > 0),
@@ -13,4 +13,4 @@ export const filterOptions = Object.keys(customFilterMap).map(filterName => ({
   value: filterName,
 }));
 
-export default withCustomFilters(ReactListify, customFilterMap);
+export default withCustomFilters(ReactBigList, customFilterMap);

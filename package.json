@@ -1,8 +1,10 @@
 {
-  "name": "react-listify",
+  "name": "react-big-list",
   "version": "1.0.0",
-  "main": "index.js",
-  "author": "Meemaw",
+  "description": "Smart wrapper component for your big collections.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Meemaw <ematej.snuderl@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf ./lib && tsc",

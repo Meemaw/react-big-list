@@ -2,13 +2,13 @@ import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { Input } from 'semantic-ui-react';
 
-import ReactListify from '../src';
+import ReactBigList from '../src';
 import { coolStuff, coolStufObjects } from './constants';
 import { renderSimple } from './helpers';
 
-storiesOf('ReactListify - query filters', module)
+storiesOf('ReactBigList - query filters', module)
   .add('Filter list of strings', () => (
-    <ReactListify members={coolStuff}>
+    <ReactBigList members={coolStuff}>
       {data => (
         <div>
           <Input
@@ -19,11 +19,11 @@ storiesOf('ReactListify - query filters', module)
           {renderSimple(data)}
         </div>
       )}
-    </ReactListify>
+    </ReactBigList>
   ))
 
   .add('Filters list of numbers', () => (
-    <ReactListify members={[1, 5, 10, 15, 501]}>
+    <ReactBigList members={[1, 5, 10, 15, 501]}>
       {data => (
         <div>
           <Input
@@ -34,10 +34,10 @@ storiesOf('ReactListify - query filters', module)
           {renderSimple(data)}
         </div>
       )}
-    </ReactListify>
+    </ReactBigList>
   ))
-  .add('Custom filter function', () => (
-    <ReactListify
+  .add('Custom filter function (all objects with name longer than querystring)', () => (
+    <ReactBigList
       members={coolStufObjects}
       queryStringFilter={(member, queryString) => member.name.length > queryString.length}
     >
@@ -51,5 +51,5 @@ storiesOf('ReactListify - query filters', module)
           {renderSimple({ ...data, field: 'name' })}
         </div>
       )}
-    </ReactListify>
+    </ReactBigList>
   ));

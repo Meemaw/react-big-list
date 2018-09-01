@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { Input, Pagination } from 'semantic-ui-react';
 
-import ReactListify from '../src';
+import ReactBigList from '../src';
 import { coolStuff } from './constants';
 import { renderSimple } from './helpers';
 
@@ -26,13 +26,13 @@ class TestWrapper extends React.Component {
   }
 }
 
-storiesOf('ReactListify - pagination', module).add('default', () => {
+storiesOf('ReactBigList - pagination', module).add('default', () => {
   const members = coolStuff;
 
   return (
     <TestWrapper members={members}>
       {({ pageSize }) => (
-        <ReactListify members={members} paginationProps={{ pageSize }}>
+        <ReactBigList members={members} paginationProps={{ pageSize }}>
           {props => {
             return (
               <div>
@@ -47,7 +47,7 @@ storiesOf('ReactListify - pagination', module).add('default', () => {
               </div>
             );
           }}
-        </ReactListify>
+        </ReactBigList>
       )}
     </TestWrapper>
   );

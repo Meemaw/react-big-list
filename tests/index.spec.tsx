@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
-import ReactListify from '../src';
+import ReactBigList from '../src';
 import { STRINGS } from './data';
 import { assertWithTimeout, sandbox } from './utils';
 
@@ -14,7 +14,7 @@ function removePassedFunctions(passedData) {
   }, {});
 }
 
-describe('ReactListify', () => {
+describe('ReactBigList', () => {
   let childrenSpy;
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('ReactListify', () => {
   });
 
   test('Renders default text with no children function provided', () => {
-    const wrapper = shallow(<ReactListify members={[]} />);
+    const wrapper = shallow(<ReactBigList members={[]} />);
     expect(wrapper.html()).toEqual(
       '<div>Please provide children function to render your data!</div>',
     );
@@ -30,12 +30,12 @@ describe('ReactListify', () => {
 
   test('Renders custom children function', () => {
     const children = () => 'Render that!';
-    const wrapper = shallow(<ReactListify members={[]}>{children}</ReactListify>);
+    const wrapper = shallow(<ReactBigList members={[]}>{children}</ReactBigList>);
     expect(wrapper.text()).toEqual('Render that!');
   });
 
   test('Calls children function two times on mount', done => {
-    shallow(<ReactListify members={[]}>{childrenSpy}</ReactListify>);
+    shallow(<ReactBigList members={[]}>{childrenSpy}</ReactBigList>);
     expect(childrenSpy.calledOnce).toBeTruthy();
     assertWithTimeout(() => {
       expect(childrenSpy.callCount).toBe(2);
@@ -43,7 +43,7 @@ describe('ReactListify', () => {
   });
 
   test('Passes correct initial props', done => {
-    shallow(<ReactListify members={STRINGS}>{childrenSpy}</ReactListify>);
+    shallow(<ReactBigList members={STRINGS}>{childrenSpy}</ReactBigList>);
     assertWithTimeout(() => {
       expect(childrenSpy.callCount).toBe(2);
       const data = removePassedFunctions(childrenSpy.getCall(1).args[0]);
@@ -65,7 +65,7 @@ describe('ReactListify', () => {
   });
 
   test('Correctly handles queryString change', done => {
-    const wrapper: any = shallow(<ReactListify members={STRINGS}>{childrenSpy}</ReactListify>);
+    const wrapper: any = shallow(<ReactBigList members={STRINGS}>{childrenSpy}</ReactBigList>);
     wrapper.instance().setQueryString('ee');
 
     assertWithTimeout(() => {
@@ -79,9 +79,9 @@ describe('ReactListify', () => {
 
   test('Correctly handles page change', done => {
     const wrapper: any = shallow(
-      <ReactListify members={STRINGS} paginationProps={{ pageSize: 2 }}>
+      <ReactBigList members={STRINGS} paginationProps={{ pageSize: 2 }}>
         {childrenSpy}
-      </ReactListify>,
+      </ReactBigList>,
     );
 
     wrapper.instance().setPageNumber(2);
@@ -106,7 +106,7 @@ describe('ReactListify', () => {
   });
 
   test('Correctly handles setSort', done => {
-    const wrapper: any = shallow(<ReactListify members={STRINGS}>{childrenSpy}</ReactListify>);
+    const wrapper: any = shallow(<ReactBigList members={STRINGS}>{childrenSpy}</ReactBigList>);
     wrapper.instance().setSort();
     assertWithTimeout(() => {
       expect(childrenSpy.callCount).toBe(3);
@@ -130,9 +130,9 @@ describe('ReactListify', () => {
 
   test('Correctly handles actions combined', done => {
     const wrapper: any = shallow(
-      <ReactListify members={STRINGS} paginationProps={{ pageSize: 3 }}>
+      <ReactBigList members={STRINGS} paginationProps={{ pageSize: 3 }}>
         {childrenSpy}
-      </ReactListify>,
+      </ReactBigList>,
     );
     wrapper.instance().setPageNumber(2);
     wrapper.instance().setSort();

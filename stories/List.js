@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { List, Pagination, Segment } from 'semantic-ui-react';
 
-import ReactListify, { withCustomFilters, withPageSize } from '../src';
+import ReactBigList, { withCustomFilters, withPageSize } from '../src';
 import { coolStuff } from './constants';
 import { renderCombinedHeader } from './helpers';
 import { customFilterMap, filterOptions } from './listFilters';
 
-let Enhanced = withCustomFilters(ReactListify, customFilterMap);
+let Enhanced = withCustomFilters(ReactBigList, customFilterMap);
 Enhanced = withPageSize(Enhanced, 5);
 
 class ListWrapper extends React.Component {
