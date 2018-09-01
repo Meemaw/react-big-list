@@ -33,6 +33,6 @@ React Big List is smart wrapper component for your big collections on client-sid
 Sometimes backend API's doesn't support features like sorting/pagination/filtering. Implementing this on client side can lead to many edge-case errors which are easily overlooked. Moreover, performing those operations on huge collections is very expensive and may have sever impact on user experience. React Big List implements generic logic of generic logic of pagination, sorting, filtering and is thourougly [tested][tests]. It also uses caching internally to reuse already computed (sorted/filtered) sub-collections.
 
 [about]: https://github.com/Meemaw/react-big-list#about
-[why]: https://github.com/Meemaw/react-big-list#why
+[motivation]: https://github.com/Meemaw/react-big-list#motivation
 [tests]: https://github.com/Meemaw/react-big-list/tree/master/tests
 [usage]: https://github.com/Meemaw/react-big-list#usage
