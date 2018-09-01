@@ -26,10 +26,13 @@
     "build": "rm -rf ./dist && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "test": "jest",
+    "test:coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prepare": "yarn build",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "size": "size-limit",
-    "size:why": "size-limit --why"
+    "size:why": "size-limit --why",
+    "build-storybook": "build-storybook -c .storybook -o .out",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "dependencies": {
     "lodash.orderby": "^4.6.0"
@@ -42,6 +45,7 @@
     "@storybook/addon-notes": "^3.3.4",
     "@storybook/addon-options": "^3.3.4",
     "@storybook/react": "^3.3.4",
+    "@storybook/storybook-deployer": "^2.3.0",
     "@types/enzyme": "^3.1.13",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.1",
@@ -59,6 +63,7 @@
     "awesome-typescript-loader": "^4.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "coveralls": "^3.0.2",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
     "enzyme-to-json": "^3.3.4",
