@@ -4,10 +4,10 @@ import React from 'react';
 import ListWrapper from './List';
 import TableWrapper from './Table';
 
-storiesOf('ReactListify - combined', module)
+storiesOf('ReactBigList - combined', module)
   .add('List', () => {
     return <ListWrapper />;
   })
-  .add('Table', () => {
+  .add('Async table', () => {
     return <TableWrapper />;
   });
