@@ -7,8 +7,6 @@ type State<T> = {
   pageNumber: number;
   queryString: string;
   activeFilters: string[];
-  sortDirection?: SortDirection;
-  sortColumn?: string;
   displayedCount: number;
   slicedMembers: T[];
   numPages: number;
@@ -16,7 +14,11 @@ type State<T> = {
   displayingTo: number;
   activePage: number;
   filteredCount: number;
+  sortDirection?: SortDirection;
+  sortColumn?: string;
 };
+
+const DEFAULT_DEBOUNCE_TIME = 150; // 150ms
 
 class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
@@ -25,6 +27,7 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
     initialQueryString: '',
     initialActiveFilters: [],
     sortProps: {},
+    children: ({}) => <div>Please provide children function to render your data!</div>,
   };
 
   constructor(props: ListifyProps<T>) {
@@ -43,7 +46,7 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
       displayingTo: 0,
       activePage: 1,
     };
-    this._relistify = debounce(this._relistify, 150);
+    this._relistify = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME);
   }
 
   componentDidMount() {
@@ -58,6 +61,8 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
 
   shouldComponentUpdate(nextProps: ListifyProps<T>, _: State<T>) {
     if (nextProps.members !== this.membersReference) {
+      this.sortingCache = {};
+      this.queryStringCache = {};
       this.membersReference = nextProps.members;
       this._relistify(nextProps.members);
     }
@@ -180,7 +185,7 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
       filteredCount,
     } = this.state;
 
-    return children({
+    return children!({
       sortColumn,
       sortDirection,
       activeFilters,
@@ -191,10 +196,10 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       filteredCount,
       queryString,
-      setPageNumber: this.setPageNumber,
-      setQueryString: this.setQueryString,
       members: slicedMembers,
       displayedCount: slicedMembers.length,
+      setPageNumber: this.setPageNumber,
+      setQueryString: this.setQueryString,
       toggleFilter: this.toggleFilter,
       clearFilters: this.clearFilters,
       setSort: this.setSort,

@@ -5,7 +5,7 @@ export type SortDirection = 'asc' | 'desc';
 export interface ListifyProps<T> extends React.Props<Listify<T>> {
   members: T[];
   queryString?: string | null;
-  children: (childrenProps: ChildrenProps<T>) => React.ReactNode;
+  children?: (childrenProps: ChildrenProps<T>) => React.ReactNode;
   queryStringFilter?: QueryStringFilter<T>;
   paginationProps?: PaginationProps;
   sortProps?: SortProps<T>;
