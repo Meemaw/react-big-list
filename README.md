@@ -37,6 +37,49 @@ React Big List is smart wrapper component for your big collections on client-sid
 
 Sometimes backend API's doesn't support features like sorting/pagination/filtering. Implementing this on client side can lead to many edge-case errors which are easily overlooked. Moreover, performing those operations on huge collections is very expensive and may have sever impact on user experience. React Big List implements generic logic of generic logic of pagination, sorting, filtering and is thourougly [tested][tests]. It also uses caching internally to reuse already computed (sorted/filtered) sub-collections.
 
+### [Live Playground][playground]
+
+For examples of the datepicker in action, go to https://Meemaw.github.io/react-big-list/.
+
+OR
+
+To run that demo on your own computer:
+
+- Clone this repository
+- `npm install`
+- `npm run storybook`
+- Visit http://localhost:6006/
+
+### [Usage][usage]
+
+Import `ReactBigList` in your React component:
+
+```javascript static
+import ReactBigList from 'react-big-list';
+```
+
+Use props provided by `react-big-list` to render your collection.
+
+```javascript static
+render() {
+  return (
+    <ReactBigList members={['React', 'Angular', 'Ember']} paginationProps={{ pageSize: 2 }}>
+      {({
+        members,
+        queryString,
+        setQueryString,
+        sortColumn,
+        sortDirection,
+        setSort,
+        displayedCount,
+        initialCount,
+        ...rest
+      }) => <div>{`${displayedCount} members out of ${initialCount} displayed.`}</div>}
+    </ReactBigList>
+  )
+}
+```
+
 ### [Installation][installation]
 
 Install it from npm and include it in your React build process (using [Webpack](http://webpack.github.io/), [Browserify](http://browserify.org/), etc).
@@ -63,3 +106,4 @@ yarn test
 [usage]: https://github.com/Meemaw/react-big-list#usage
 [installation]: https://github.com/Meemaw/react-big-list#installation
 [testing]: https://github.com/Meemaw/react-big-list#testing
+[usage]: https://github.com/Meemaw/react-big-list#usage

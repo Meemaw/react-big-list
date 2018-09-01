@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Smart wrapper component for your big collections.",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types.tsx",
   "author": "Meemaw <ematej.snuderl@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -23,16 +23,16 @@
     "url": "https://github.com/Meemaw/react-big-list/issues"
   },
   "scripts": {
+    "prepare": "yarn build",
     "build": "rm -rf ./dist && tsc",
     "lint": "tslint -c tslint.json --project tsconfig.json",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "prepare": "yarn build",
-    "storybook": "start-storybook -p 6006 -c .storybook",
     "size": "size-limit",
     "size:why": "size-limit --why",
-    "build-storybook": "build-storybook -c .storybook -o .out",
-    "deploy-storybook": "storybook-to-ghpages"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o .out",
+    "storybook:deploy": "storybook-to-ghpages --existing-output-dir=.out"
   },
   "dependencies": {
     "lodash.orderby": "^4.6.0"

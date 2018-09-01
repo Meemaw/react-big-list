@@ -16,3 +16,6 @@ install:
 script:
   - yarn test:coverage
   - cat ./coverage/lcov.info | coveralls
+after_success:
+  - yarn storybook:build
+  - yarn storybook:deploy

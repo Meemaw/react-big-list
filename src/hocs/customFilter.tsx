@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CustomFilterMap, CustomFilterProps, HOC } from '../..';
+import { CustomFilterMap, CustomFilterProps, HOC } from '../types';
 
 interface IWithCustomFilters<T> {
   customFilterProps?: CustomFilterProps<T>;

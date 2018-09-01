@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export type SortDirection = 'asc' | 'desc';
 
-export interface ListifyProps<T> extends React.Props<Listify<T>> {
+export interface ListifyProps<T> extends React.Props<ReactBigList<T>> {
   members: T[];
   queryString?: string | null;
   children?: (childrenProps: ChildrenProps<T>) => React.ReactNode;
@@ -72,10 +72,6 @@ export interface ChildrenProps<T> extends PaginationData {
   sortColumn?: string;
 }
 
-declare class Listify<T> extends React.Component<ListifyProps<T>, any> {}
+declare class ReactBigList<T> extends React.Component<ListifyProps<T>, any> {}
 
-declare module 'listify' {
-
-}
-
-export default Listify;
+export default ReactBigList;

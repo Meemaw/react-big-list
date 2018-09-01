@@ -9,7 +9,7 @@ import {
   SortFunction,
   SortProps,
   TableSortProps,
-} from '../..';
+} from '../types';
 
 export function debounce(func: any, wait: number, immediate?: boolean) {
   let timeout: number | undefined;

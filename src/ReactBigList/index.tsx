@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FilterFunction, ListifyProps, MembersCache, SortDirection } from '../../';
+import { FilterFunction, ListifyProps, MembersCache, SortDirection } from '../types';
 import { debounce, filterByQueryString, paginate, sort } from '../utils';
 
 type State<T> = {

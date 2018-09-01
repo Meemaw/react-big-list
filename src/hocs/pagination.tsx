@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { HOC, PaginationProps } from '../..';
+import { HOC, PaginationProps } from '../types';
 
 interface IWithPaginationProps {
   paginationProps?: PaginationProps;

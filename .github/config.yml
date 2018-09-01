@@ -1,0 +1,41 @@
+#
+# new-issue-welcome
+# https://github.com/behaviorbot/new-issue-welcome
+#
+
+# Comment to be posted to on first time issues
+newIssueWelcomeComment: |
+  👋 Thanks for opening your first issue here! If you're reporting a 🐞 bug, please make sure you've completed all the fields in the issue template so we can best help.
+  We get a lot of issues on this repo, so please be patient and we will get back to you as soon as we can.
+#
+# new-pr-welcome
+# https://github.com/behaviorbot/new-pr-welcome
+#
+
+# Comment to be posted to on PRs from first time contributors in your repository
+newPRWelcomeComment: |
+  💖 Thanks for opening this pull request! 💖
+#
+# first-pr-merge
+# https://github.com/behaviorbot/first-pr-merge
+#
+
+# Comment to be posted to on pull requests merged by a first time user
+firstPRMergeComment: |
+  Congrats on merging your first pull request! 🎉🎉🎉
+  ![robot victory dance](https://media.giphy.com/media/tczJoRU7XwBS8/giphy.gif)
+#
+# lock-threads
+# https://github.com/dessant/lock-threads
+#
+
+# Number of days of inactivity before a closed issue or pull request is locked
+daysUntilLock: 60
+
+# Comment to post before locking. Set to `false` to disable
+lockComment: >
+  This thread has been automatically locked because it has not had recent
+  activity. Please open a new issue for related bugs and link to relevant
+  comments in this thread.
+# Limit to only `issues` or `pulls`
+# only: issues
