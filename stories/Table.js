@@ -38,7 +38,7 @@ class TableWrapper extends React.Component {
   }
 
   queryStringFilter = (coin, queryString) => {
-    const query = queryString.trim();
+    const query = queryString.trim().toLowerCase();
     return coin.name.toLowerCase().includes(query) || coin.symbol.toLowerCase().includes(query);
   };
 

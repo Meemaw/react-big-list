@@ -15,6 +15,11 @@ describe('filterByQueryString', () => {
     expect(filterByQueryString(STRINGS, 'ee')).toEqual(['deee']);
   });
 
+  test('Correctly filters strings with uppercase query string', () => {
+    expect(filterByQueryString(STRINGS, 'E')).toEqual(['deee', 'e']);
+    expect(filterByQueryString(STRINGS, 'EE')).toEqual(['deee']);
+  });
+
   test('Correctly filters objects', () => {
     const filterFunction = (x, queryString) => x.number.toString() === queryString;
     expect(filterByQueryString(OBJECTS, '3', filterFunction)).toEqual([{ number: 3 }]);
