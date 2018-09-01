@@ -1,6 +1,6 @@
 {
   "name": "react-big-list",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Smart wrapper component for your big collections.",
   "main": "dist/index.js",
   "types": "dist/types.tsx",
