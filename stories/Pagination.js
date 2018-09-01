@@ -3,26 +3,16 @@ import React from 'react';
 import { Input, Pagination } from 'semantic-ui-react';
 
 import ReactListify from '../src';
-import { getNumPages } from '../src/utils';
 import { coolStuff } from './constants';
 import { renderSimple } from './helpers';
 
 class TestWrapper extends React.Component {
-  state = { activePage: 1, pageSize: 2 };
-
-  handlePaginationChange = (e, { activePage }) => this.setState({ activePage });
+  state = { pageSize: 2 };
 
   render() {
-    let { activePage, pageSize } = this.state;
-
-    const numPages = getNumPages(this.props.members.length, pageSize);
-
-    activePage = numPages < activePage ? numPages : activePage;
-
+    const { pageSize } = this.state;
     return (
       <div>
-        {this.props.children(activePage, pageSize)}
-
         <Input
           label="Page size"
           placeholder="Enter page size"
@@ -30,13 +20,7 @@ class TestWrapper extends React.Component {
           onChange={(e, { value }) => this.setState({ pageSize: value })}
           type="number"
         />
-        <Pagination
-          style={{ marginLeft: '30px' }}
-          activePage={activePage}
-          onPageChange={this.handlePaginationChange}
-          totalPages={numPages}
-          size="mini"
-        />
+        {this.props.children({ pageSize })}
       </div>
     );
   }
@@ -47,9 +31,22 @@ storiesOf('ReactListify - pagination', module).add('default', () => {
 
   return (
     <TestWrapper members={members}>
-      {(pageNumber, pageSize) => (
-        <ReactListify members={members} paginationProps={{ pageNumber, pageSize }}>
-          {data => renderSimple(data)}
+      {({ pageSize }) => (
+        <ReactListify members={members} paginationProps={{ pageSize }}>
+          {props => {
+            return (
+              <div>
+                {renderSimple(props)}
+                <Pagination
+                  style={{ marginLeft: '30px' }}
+                  activePage={props.activePage}
+                  onPageChange={(e, { activePage }) => props.setPageNumber(activePage)}
+                  totalPages={props.numPages}
+                  size="mini"
+                />
+              </div>
+            );
+          }}
         </ReactListify>
       )}
     </TestWrapper>

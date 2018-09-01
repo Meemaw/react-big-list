@@ -65,6 +65,14 @@ class Listify<T> extends React.Component<ListifyProps<T>, State<T>> {
       this.queryStringCache = {};
       this.membersReference = nextProps.members;
       this._relistify(nextProps.members);
+      return false;
+    }
+
+    const nextPageSize = nextProps.paginationProps ? nextProps.paginationProps.pageSize : 0;
+    const currentPageSize = this.props.paginationProps ? this.props.paginationProps.pageSize : 0;
+    if (nextPageSize !== currentPageSize) {
+      this._relistify(nextProps.members);
+      return false;
     }
     return true;
   }

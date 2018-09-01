@@ -47,10 +47,10 @@ function renderHeaderSimple(count, initialCount) {
   );
 }
 
-export function renderSimple({ members, count, initialCount, field = null }) {
+export function renderSimple({ members, displayedCount, initialCount, field = null }) {
   return (
     <Segment>
-      {renderHeaderSimple(count, initialCount)}
+      {renderHeaderSimple(displayedCount, initialCount)}
       <List>{renderMembersSimple(members, field)}</List>
     </Segment>
   );
