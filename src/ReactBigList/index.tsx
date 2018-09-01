@@ -18,7 +18,8 @@ type State<T> = {
   sortColumn?: string;
 };
 
-const DEFAULT_DEBOUNCE_TIME = 150; // 150ms
+const DEFAULT_DEBOUNCE_TIME_TYPING = 125; // 125ms + 75ms = 200ms
+const DEFAULT_DEBOUNCE_TIME = 75; // 100ms
 
 class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
@@ -47,6 +48,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage: 1,
     };
     this._relistify = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME);
+    this._relistify_typing = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME_TYPING);
   }
 
   componentDidMount() {
@@ -84,7 +86,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
 
   setQueryString = (queryString: string) => {
     this.setState({ queryString });
-    this._relistify(this.props.members);
+    this._relistify_typing(this.props.members);
   };
 
   clearFilters = () => {
@@ -116,6 +118,10 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
     }
     this._relistify(this.props.members);
   };
+
+  _relistify_typing(members: T[]): void {
+    this._relistify(members);
+  }
 
   _relistify(members: T[]): void {
     let modifiedMembers = this._sort(members);

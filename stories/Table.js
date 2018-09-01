@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Label, Loader, Menu, Pagination, Table } from 'semantic-ui-react';
+import { Dimmer, Label, Loader, Menu, Pagination, Table } from 'semantic-ui-react';
 
 import ReactBigList, { withCustomFilters, withPageSize } from '../src';
 import { renderCombinedHeader } from './helpers';
@@ -77,26 +77,28 @@ class TableWrapper extends React.Component {
                 queryString,
                 setQueryString,
               })}
-              <Table celled sortable>
-                <Table.Header>
-                  <Table.Row>
-                    {headerOptions.map(headerOption => (
-                      <Table.HeaderCell
-                        key={headerOption.value}
-                        sorted={sortColumn === headerOption.value ? semanticDirection : null}
-                        onClick={() => setSort(headerOption.value)}
-                      >
-                        {headerOption.text}
-                      </Table.HeaderCell>
-                    ))}
-                  </Table.Row>
-                </Table.Header>
 
-                <Table.Body>
-                  {loading ? (
-                    <Loader />
-                  ) : (
-                    members.map(coin => {
+              {loading ? (
+                <Dimmer active>
+                  <Loader>Loading data from coinmarketcap...</Loader>
+                </Dimmer>
+              ) : (
+                <Table celled sortable>
+                  <Table.Header>
+                    <Table.Row>
+                      {headerOptions.map(headerOption => (
+                        <Table.HeaderCell
+                          key={headerOption.value}
+                          sorted={sortColumn === headerOption.value ? semanticDirection : null}
+                          onClick={() => setSort(headerOption.value)}
+                        >
+                          {headerOption.text}
+                        </Table.HeaderCell>
+                      ))}
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
+                    {members.map(coin => {
                       const change1h = coin.quotes.USD.percent_change_1h;
                       return (
                         <Table.Row key={coin.id}>
@@ -112,25 +114,24 @@ class TableWrapper extends React.Component {
                           >{`${change1h} %`}</Table.Cell>
                         </Table.Row>
                       );
-                    })
-                  )}
-                </Table.Body>
-
-                <Table.Footer>
-                  <Table.Row>
-                    <Table.HeaderCell colSpan="6">
-                      <Menu floated="right" pagination>
-                        <Pagination
-                          activePage={activePage}
-                          totalPages={numPages}
-                          onPageChange={(e, { activePage }) => setPageNumber(activePage)}
-                          size="mini"
-                        />
-                      </Menu>
-                    </Table.HeaderCell>
-                  </Table.Row>
-                </Table.Footer>
-              </Table>
+                    })}
+                  </Table.Body>
+                  <Table.Footer>
+                    <Table.Row>
+                      <Table.HeaderCell colSpan="6">
+                        <Menu floated="right" pagination>
+                          <Pagination
+                            activePage={activePage}
+                            totalPages={numPages}
+                            onPageChange={(e, { activePage }) => setPageNumber(activePage)}
+                            size="mini"
+                          />
+                        </Menu>
+                      </Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Footer>
+                </Table>
+              )}
             </React.Fragment>
           );
         }}
