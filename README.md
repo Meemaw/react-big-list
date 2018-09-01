@@ -46,8 +46,15 @@ or:
 yarn add react-big-list
 ```
 
+### [Testing][testing]
+
+```bash
+yarn test
+```
+
 [about]: https://github.com/Meemaw/react-big-list#about
 [motivation]: https://github.com/Meemaw/react-big-list#motivation
 [tests]: https://github.com/Meemaw/react-big-list/tree/master/tests
 [usage]: https://github.com/Meemaw/react-big-list#usage
 [installation]: https://github.com/Meemaw/react-big-list#installation
+[testing]: https://github.com/Meemaw/react-big-list#testing
