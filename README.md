@@ -41,11 +41,20 @@
 
 ### [About][about]
 
-React Big List is smart wrapper component for your big collections on client-side.
+React Big List is smart wrapper component for handling large collections on client-side.
+
+### [Features][features]
+
+- Sorting
+- Query filtering
+- Custom filters
+- Pagination
+- Internal caching 💥
+- Responsiveness (no UI blocking) 💥
 
 ### [Motivation][motivation]
 
-Sometimes backend API's doesn't support features like sorting/pagination/filtering. Implementing this on client side can lead to many edge-case errors which are easily overlooked. Moreover, performing those operations on huge collections is very expensive and may have sever impact on user experience. React Big List implements generic logic of generic logic of pagination, sorting, filtering and is thourougly [tested][tests]. It also uses caching internally to reuse already computed (sorted/filtered) sub-collections.
+Sometimes backend API's doesn't support features like sorting/pagination/filtering. Implementing those operations on client side can lead to many edge-case errors which are easily overlooked. Moreover, performing those operations on huge collections is very expensive and may lead UI freezes and have sever impact on user experience. React Big List implements generic logic of generic logic of pagination, sorting, filtering and is thoroughly [tested][tests].
 
 ### [Live Playground][playground]
 
@@ -125,6 +134,7 @@ This project follows the [all-contributors][all-contributors] specification.
 Contributions of any kind welcome!
 
 [about]: https://github.com/Meemaw/react-big-list#about
+[features]: https://github.com/Meemaw/react-big-list#features
 [motivation]: https://github.com/Meemaw/react-big-list#motivation
 [tests]: https://github.com/Meemaw/react-big-list/tree/master/tests
 [usage]: https://github.com/Meemaw/react-big-list#usage
