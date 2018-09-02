@@ -1,7 +1,14 @@
 import * as React from 'react';
 
-import { ListifyProps, MembersCache, SortDirection } from '../types';
-import { applyFilters, debounce, filterByQueryString, paginate, sort } from '../utils';
+import { Cache, ListifyProps, MembersCache, SortDirection } from '../types';
+import {
+  applyFilters,
+  debounce,
+  estimateDebounceWait,
+  filterByQueryString,
+  paginate,
+  sort,
+} from '../utils';
 
 type State<T> = {
   pageNumber: number;
@@ -18,10 +25,7 @@ type State<T> = {
   sortColumn?: string;
 };
 
-const DEFAULT_DEBOUNCE_TIME_TYPING = 150; // 150ms + 75ms = 225ms
-const DEFAULT_DEBOUNCE_TIME = 75; // 100ms
-
-const persistanceCache: any = {};
+const persistanceCache: Cache<State<any>> = {};
 
 class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
@@ -35,6 +39,8 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
 
   constructor(props: ListifyProps<T>) {
     super(props);
+
+    this._estimate_listify_debounce(props.members);
     const { persistanceId } = props;
     if (persistanceId && persistanceCache[persistanceId]) {
       this.state = persistanceCache[persistanceId];
@@ -55,10 +61,17 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
         activePage: 1,
       };
     }
-
-    this._relistify = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME);
-    this._relistify_typing = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME_TYPING);
   }
+
+  debounceWait!: number;
+
+  _relistify: any;
+
+  membersReference: T[] = this.props.members;
+
+  sortingCache: MembersCache<T> = {};
+
+  queryStringCache: MembersCache<T> = {};
 
   componentDidMount() {
     this._relistify(this.props.members);
@@ -71,17 +84,21 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
     }
   }
 
-  membersReference: T[] = this.props.members;
+  _resetCache() {
+    this.sortingCache = {};
+    this.queryStringCache = {};
+  }
 
-  sortingCache: MembersCache<T> = {};
-
-  queryStringCache: MembersCache<T> = {};
+  _estimate_listify_debounce(members: T[]) {
+    this.debounceWait = estimateDebounceWait(members.length);
+    this._relistify = debounce(this.relistify, this.debounceWait);
+  }
 
   shouldComponentUpdate(nextProps: ListifyProps<T>, _: State<T>) {
     if (nextProps.members !== this.membersReference) {
-      this.sortingCache = {};
-      this.queryStringCache = {};
+      this._resetCache();
       this.membersReference = nextProps.members;
+      this._estimate_listify_debounce(nextProps.members);
       this._relistify(nextProps.members);
       return false;
     }
@@ -102,7 +119,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
 
   setQueryString = (queryString: string) => {
     this.setState({ queryString });
-    this._relistify_typing(this.props.members);
+    this._relistify(this.props.members);
   };
 
   clearFilters = () => {
@@ -135,11 +152,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
     this._relistify(this.props.members);
   };
 
-  _relistify_typing(members: T[]): void {
-    this._relistify(members);
-  }
-
-  _relistify(members: T[]): void {
+  relistify(members: T[]): void {
     let modifiedMembers = this._sort(members);
     modifiedMembers = this._queryStringFilter(modifiedMembers);
     modifiedMembers = this._customFilter(modifiedMembers);

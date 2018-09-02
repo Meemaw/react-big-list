@@ -13,6 +13,15 @@ import {
   TableSortProps,
 } from '../types';
 
+const MIN_DEBOUNCE_TIME = 20;
+const MAX_DEBOUNCE_TIME = 280;
+
+export function estimateDebounceWait(listSize: number): number {
+  const listWaitSize = listSize / 500;
+  const waitSize = MIN_DEBOUNCE_TIME + listWaitSize;
+  return Math.min(waitSize, MAX_DEBOUNCE_TIME);
+}
+
 export function debounce(func: any, wait: number, immediate?: boolean) {
   let timeout: number | undefined;
   return function(this: any, ...args: any[]) {

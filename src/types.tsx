@@ -17,11 +17,13 @@ export interface ListifyProps<T> extends React.Props<ReactBigList<T>> {
   persistanceId?: string;
 }
 
+export type Cache<T> = { [cacheKey: string]: T };
+
 export type QueryStringFilter<T> = (member: T, queryString: string) => boolean;
 
 export type CustomFilterMap<T> = { [filter: string]: FilterFunction<T> };
 
-export type MembersCache<T> = { [key: string]: T[] };
+export type MembersCache<T> = Cache<T[]>;
 
 export type HOC<PWrapped, PHoc> =
   | React.ComponentClass<PWrapped & PHoc>
