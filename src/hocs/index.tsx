@@ -1,4 +1,4 @@
-import withCustomFilter from './customFilter';
+import withCustomFilters from './customFilter';
 import withPageSize from './pagination';
 
-export { withCustomFilter, withPageSize };
+export { withCustomFilters, withPageSize };

@@ -59,7 +59,7 @@ Sometimes backend API's doesn't support features like sorting/pagination/filteri
 
 ### [Live Playground][playground]
 
-For examples of the datepicker in action, go to [https://Meemaw.github.io/react-big-list/][storybook-link].
+For examples of the `react-big-list` in action, go to [https://Meemaw.github.io/react-big-list/][storybook-link].
 
 OR
 
