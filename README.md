@@ -13,9 +13,9 @@
        src="https://api.travis-ci.org/Meemaw/react-big-list.svg?branch=master" />
   </a>
 
-  <a href='https://coveralls.io/github/Meemaw/react-big-list?branch=feature%2Fcoveralls_integration'>
-      <img 
-        src='https://coveralls.io/repos/github/Meemaw/react-big-list/badge.svg?branch=feature%2Fcoveralls_integration'/>
+  <a href='https://coveralls.io/github/Meemaw/react-big-list?branch=master'>
+    <img
+      src='https://coveralls.io/repos/github/Meemaw/react-big-list/badge.svg?branch=master' />
   </a>
 
   <a href="https://github.com/Meemaw/react-big-list/blob/master/LICENSE">

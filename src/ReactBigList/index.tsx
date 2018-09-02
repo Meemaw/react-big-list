@@ -21,7 +21,7 @@ type State<T> = {
 const DEFAULT_DEBOUNCE_TIME_TYPING = 150; // 150ms + 75ms = 225ms
 const DEFAULT_DEBOUNCE_TIME = 75; // 100ms
 
-const persistanceCache = {};
+const persistanceCache: any = {};
 
 class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {

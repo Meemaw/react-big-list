@@ -1,4 +1,4 @@
-import orderBy = require('lodash.orderby');
+import orderBy from 'lodash.orderby';
 
 import {
   CustomFilterProps,
@@ -24,7 +24,7 @@ export function debounce(func: any, wait: number, immediate?: boolean) {
     };
     var callNow = immediate && !timeout;
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = window.setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
 }
