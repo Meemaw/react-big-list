@@ -199,6 +199,14 @@ function delve(
   return obj === undefined || p < key.length ? def : obj;
 }
 
+const isString = (obj: any): boolean => {
+  return typeof obj === 'string';
+};
+
+const isNumber = (obj: any): boolean => {
+  return typeof obj === 'number';
+};
+
 function _ofStringOrNumber<T>(members: T[]) {
-  return members.length > 0 && (typeof members[0] === 'string' || typeof members[0] === 'number');
+  return members.length > 0 && (isString(members[0]) || isNumber(members[0]));
 }

@@ -2,17 +2,16 @@ import * as React from 'react';
 import { List, Pagination, Segment } from 'semantic-ui-react';
 
 import ReactBigList, { withCustomFilters, withPageSize } from '../src';
-import { coolStuff } from './constants';
 import { renderCombinedHeader } from './helpers';
 import { customFilterMap, filterOptions } from './listFilters';
 
 let Enhanced = withCustomFilters(ReactBigList, customFilterMap);
-Enhanced = withPageSize(Enhanced, 5);
+Enhanced = withPageSize(Enhanced, 10);
 
 class ListWrapper extends React.Component {
   render() {
     return (
-      <Enhanced members={coolStuff}>
+      <Enhanced members={this.props.members}>
         {({
           members,
           numPages,
@@ -48,7 +47,7 @@ class ListWrapper extends React.Component {
                 {members.map(member => {
                   return (
                     <List.Item key={member}>
-                      <List.Icon name={member.toLowerCase()} />
+                      <List.Icon name={this.props.icon || member.toLowerCase()} />
                       <List.Content>{member}</List.Content>
                     </List.Item>
                   );
