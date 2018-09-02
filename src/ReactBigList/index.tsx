@@ -18,8 +18,10 @@ type State<T> = {
   sortColumn?: string;
 };
 
-const DEFAULT_DEBOUNCE_TIME_TYPING = 125; // 125ms + 75ms = 200ms
+const DEFAULT_DEBOUNCE_TIME_TYPING = 150; // 150ms + 75ms = 225ms
 const DEFAULT_DEBOUNCE_TIME = 75; // 100ms
+
+const persistanceCache = {};
 
 class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   static defaultProps = {
@@ -33,26 +35,40 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
 
   constructor(props: ListifyProps<T>) {
     super(props);
-    this.state = {
-      pageNumber: this.props.initialPageNumber!,
-      queryString: this.props.initialQueryString!,
-      activeFilters: this.props.initialActiveFilters!,
-      sortDirection: this.props.initialSortDirection,
-      sortColumn: undefined,
-      slicedMembers: [],
-      filteredCount: 0,
-      displayedCount: 0,
-      numPages: 1,
-      displayingFrom: 0,
-      displayingTo: 0,
-      activePage: 1,
-    };
+    const { persistanceId } = props;
+    if (persistanceId && persistanceCache[persistanceId]) {
+      this.state = persistanceCache[persistanceId];
+      delete persistanceCache[persistanceId];
+    } else {
+      this.state = {
+        pageNumber: this.props.initialPageNumber!,
+        queryString: this.props.initialQueryString!,
+        activeFilters: this.props.initialActiveFilters!,
+        sortDirection: this.props.initialSortDirection,
+        sortColumn: undefined,
+        slicedMembers: [],
+        filteredCount: 0,
+        displayedCount: 0,
+        numPages: 1,
+        displayingFrom: 0,
+        displayingTo: 0,
+        activePage: 1,
+      };
+    }
+
     this._relistify = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME);
     this._relistify_typing = debounce(this._relistify, DEFAULT_DEBOUNCE_TIME_TYPING);
   }
 
   componentDidMount() {
     this._relistify(this.props.members);
+  }
+
+  componentWillUnmount() {
+    const { persistanceId } = this.props;
+    if (persistanceId) {
+      persistanceCache[persistanceId] = { ...this.state };
+    }
   }
 
   membersReference: T[] = this.props.members;
@@ -202,7 +218,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       filteredCount,
       queryString,
-      members: slicedMembers,
+      displayedMembers: slicedMembers,
       displayedCount: slicedMembers.length,
       setPageNumber: this.setPageNumber,
       setQueryString: this.setQueryString,

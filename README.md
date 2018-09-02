@@ -49,6 +49,7 @@ React Big List is smart wrapper component for handling large collections on clie
 - Query filtering
 - Custom filters
 - Pagination
+- Persistance between remounts
 - Internal caching 💥
 - Responsiveness (no UI blocking) 💥
 
@@ -84,16 +85,12 @@ render() {
   return (
     <ReactBigList members={['React', 'Angular', 'Ember']} paginationProps={{ pageSize: 2 }}>
       {({
-        members,
-        queryString,
-        setQueryString,
+        displayedMembers,
         sortColumn,
         sortDirection,
         setSort,
-        displayedCount,
-        initialCount,
         ...rest
-      }) => <div>{`${displayedCount} members out of ${initialCount} displayed.`}</div>}
+      }) => <div>{`Members sorted by ${sortColumn} in ${sortDirection} direction.`}</div>}
     </ReactBigList>
   )
 }

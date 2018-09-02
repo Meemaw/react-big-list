@@ -34,6 +34,18 @@ describe('ReactBigList', () => {
     expect(wrapper.text()).toEqual('Render that!');
   });
 
+  test('Correctly caches', done => {
+    const wrapper: any = shallow(<ReactBigList members={STRINGS}>{childrenSpy}</ReactBigList>);
+    wrapper.instance().setQueryString('ee');
+    wrapper.instance().setSort();
+    assertWithTimeout(() => {
+      expect(wrapper.instance().queryStringCache).toEqual({ 'ee-asc-': ['deee'] });
+      expect(wrapper.instance().sortingCache).toEqual({
+        'asc-': ['azz', 'b', 'deee', 'e', 'g', 'z'],
+      });
+    }, done);
+  });
+
   test('Calls children function two times on mount', done => {
     shallow(<ReactBigList members={[]}>{childrenSpy}</ReactBigList>);
     expect(childrenSpy.calledOnce).toBeTruthy();
@@ -53,7 +65,7 @@ describe('ReactBigList', () => {
         activePage: 1,
         displayedCount: STRINGS.length,
         displayingFrom: 1,
-        members: STRINGS,
+        displayedMembers: STRINGS,
         initialCount: STRINGS.length,
         numPages: 1,
         displayingTo: STRINGS.length,
@@ -71,7 +83,7 @@ describe('ReactBigList', () => {
     assertWithTimeout(() => {
       expect(childrenSpy.callCount).toBe(3);
       const data: any = removePassedFunctions(childrenSpy.getCall(2).args[0]);
-      expect(data.members).toEqual(['deee']);
+      expect(data.displayedMembers).toEqual(['deee']);
       expect(data.queryString).toBe('ee');
       expect(data.displayedCount).toBe(1);
     }, done);
@@ -99,7 +111,7 @@ describe('ReactBigList', () => {
         activePage: 2,
         filteredCount: 6,
         queryString: '',
-        members: ['b', 'deee'],
+        displayedMembers: ['b', 'deee'],
         displayedCount: 2,
       });
     }, done);
@@ -119,7 +131,7 @@ describe('ReactBigList', () => {
         displayingTo: 6,
         filteredCount: 6,
         initialCount: 6,
-        members: ['azz', 'b', 'deee', 'e', 'g', 'z'],
+        displayedMembers: ['azz', 'b', 'deee', 'e', 'g', 'z'],
         numPages: 1,
         queryString: '',
         sortColumn: undefined,
@@ -151,7 +163,7 @@ describe('ReactBigList', () => {
         activePage: 2,
         filteredCount: 6,
         queryString: '',
-        members: ['e', 'g', 'z'],
+        displayedMembers: ['e', 'g', 'z'],
         displayedCount: 3,
       });
     }, done);

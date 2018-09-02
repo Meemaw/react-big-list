@@ -11,9 +11,9 @@ Enhanced = withPageSize(Enhanced, 10);
 class ListWrapper extends React.Component {
   render() {
     return (
-      <Enhanced members={this.props.members}>
+      <Enhanced members={this.props.members} persistanceId={this.props.persistanceId}>
         {({
-          members,
+          displayedMembers,
           numPages,
           filteredCount,
           displayingFrom,
@@ -44,7 +44,7 @@ class ListWrapper extends React.Component {
 
             <Segment>
               <List>
-                {members.map(member => {
+                {displayedMembers.map(member => {
                   return (
                     <List.Item key={member}>
                       <List.Icon name={this.props.icon || member.toLowerCase()} />

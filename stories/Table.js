@@ -49,7 +49,7 @@ class TableWrapper extends React.Component {
         {({
           activePage,
           numPages,
-          members,
+          displayedMembers,
           displayingFrom,
           displayingTo,
           filteredCount,
@@ -98,7 +98,7 @@ class TableWrapper extends React.Component {
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {members.map(coin => {
+                    {displayedMembers.map(coin => {
                       const change1h = coin.quotes.USD.percent_change_1h;
                       return (
                         <Table.Row key={coin.id}>

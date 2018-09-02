@@ -14,6 +14,7 @@ export interface ListifyProps<T> extends React.Props<ReactBigList<T>> {
   initialQueryString?: string;
   initialActiveFilters?: string[];
   initialSortDirection?: SortDirection;
+  persistanceId?: string;
 }
 
 export type QueryStringFilter<T> = (member: T, queryString: string) => boolean;
@@ -60,7 +61,7 @@ export interface PaginationData extends PaginationProps {
 }
 
 export interface ChildrenProps<T> extends PaginationData {
-  members: T[];
+  displayedMembers: T[];
   setPageNumber: (pageNumber: number) => void;
   setQueryString: (queryString: string) => void;
   queryString: string;

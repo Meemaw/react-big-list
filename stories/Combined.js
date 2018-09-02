@@ -24,7 +24,13 @@ storiesOf('ReactBigList - combined', module)
     return <ListWrapper members={generateRandomMembers(100000)} icon="random" />;
   })
   .add('List - 1 million items', () => {
-    return <ListWrapper members={generateRandomMembers(1000000)} icon="random" />;
+    return (
+      <ListWrapper
+        members={generateRandomMembers(1000000)}
+        icon="random"
+        persistanceId="1million"
+      />
+    );
   })
   .add('Async crypto table', () => {
     return <TableWrapper />;
