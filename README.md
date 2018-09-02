@@ -116,20 +116,6 @@ yarn add react-big-list
 yarn test
 ```
 
-### [Contributors][contributors]
-
-Thanks goes to these people ([emoji key][emojis]):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/8524109?s=460&v=4" width="100px;"/><br /><sub><b>Meemaw</b></sub>](https://github.com/Meemaw)<br />[💻](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Code") [📖](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Documentation") [🚇](#infra-stereobooster "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Tests")
-| :---: |
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors][all-contributors] specification.
-Contributions of any kind welcome!
-
 [about]: https://github.com/Meemaw/react-big-list#about
 [features]: https://github.com/Meemaw/react-big-list#features
 [why]: https://github.com/Meemaw/react-big-list#why
@@ -143,3 +129,17 @@ Contributions of any kind welcome!
 [contributors]: https://github.com/Meemaw/react-big-list#contributors
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [storybook-link]: https://meemaw.github.io/react-big-list/?selectedKind=ReactBigList%20-%20combined&selectedStory=Async%20crypto%20table&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybooks%2Fstorybook-addon-knobs
+
+### [Contributors][contributors]
+
+Thanks goes to these people ([emoji key][emojis]):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/8524109?v=4" width="100px;"/><br /><sub><b>Matej</b></sub>](https://github.com/Meemaw)<br />[💬](#question-Meemaw "Answering Questions") [💻](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Code") [🎨](#design-Meemaw "Design") [📖](https://github.com/Meemaw/react-big-list/commits?author=Meemaw "Documentation") [💡](#example-Meemaw "Examples") [🤔](#ideas-Meemaw "Ideas, Planning, & Feedback") [🚇](#infra-Meemaw "Infrastructure (Hosting, Build-Tools, etc)") [👀](#review-Meemaw "Reviewed Pull Requests") |
+| :---: |
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors][all-contributors] specification.
+Contributions of any kind welcome!
