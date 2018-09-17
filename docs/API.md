@@ -89,13 +89,33 @@ Unique identifier to be used for data persistance between remounts.
 
 Create higher-order-component to reuse ReactBigList configs.
 
-### `asBigList(WrappedComponent: React.ReactNode, config?: BigListConfig<any>)`
+###### `asBigList(WrappedComponent: React.ReactNode, config?: BigListConfig<any>)`
 
-### `withBigListConfig(config?: BigListConfig<any>)`
+```js
+const EnhancedComponent = asBigList(Component, { pageSize: 10 });
+```
 
-### `withPageSize(WrappedComponent: React.ReactNode, pageSize: number)`
+###### `withBigListConfig(config?: BigListConfig<any>)`
 
-### `withCustomFilters(WrappedComponent: React.ReactNode, filterMap: CustomFilterMap<any>)`
+```js
+const enhancer = withBigListConfig({ pageSize: 10 });
+const EnhancedComp1 = enhancer(Component1);
+const EnhancedComp2 = enhancer(Component2);
+```
+
+###### `withPageSize(WrappedComponent: React.ReactNode, pageSize: number)`
+
+```js
+const WithPageSize = withPageSize(ReactBigList, 10);
+```
+
+###### `withCustomFilters(WrappedComponent: React.ReactNode, filterMap: CustomFilterMap<any>)`
+
+```js
+const WithCustomFilters = withCustomFilters(ReactBigList, {
+  'Longer than 5': members => members.filter(member => member.length > 5),
+});
+```
 
 ```js
 type BigListConfig<T> = {
