@@ -4,7 +4,6 @@ export type SortDirection = 'asc' | 'desc';
 
 export interface ListifyProps<T> extends React.Props<ReactBigList<T>> {
   members: T[];
-  queryString?: string | null;
   children?: (childrenProps: ChildrenProps<T>) => React.ReactNode;
   queryStringFilter?: QueryStringFilter<T>;
   paginationProps?: PaginationProps;
@@ -29,12 +28,7 @@ export type HOC<PWrapped, PHoc> =
   | React.ComponentClass<PWrapped & PHoc>
   | React.SFC<PWrapped & PHoc>;
 
-export interface PaginationProps {
-  pageSize?: number;
-}
-
 export interface CustomFilterProps<T> {
-  activeFilters?: string[];
   filterMap?: CustomFilterMap<T>;
 }
 
@@ -51,6 +45,10 @@ export interface TableSortProps<T> {
 }
 
 export type SortProps<T> = TableSortProps<T> | ListSortProps<T>;
+
+export interface PaginationProps {
+  pageSize?: number;
+}
 
 export interface PaginationData extends PaginationProps {
   numPages?: number;
