@@ -41,7 +41,7 @@
 
 ### [About][about]
 
-React Big List is smart wrapper component for handling large collections on client-side.
+React Big List is smart wrapper component for handling large collections on client-side. It is higly generic and makes no assumptions about the underlying UI so it can be combined with virtualizing libraries like [react-virtualized](https://github.com/bvaughn/react-virtualized).
 
 [Full API documentation](https://github.com/Meemaw/react-big-list/tree/master/docs/API.md)
 
