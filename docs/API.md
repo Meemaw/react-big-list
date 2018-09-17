@@ -19,11 +19,11 @@ In these API docs, a higher-order component (HOC) refers to a function that acce
 
 ###### Props: ReactBigListProps
 
-> members: T[]
+**members: T[]**
 
 Array of all your records
 
-> children?: (childrenProps: ChildrenProps<T>) => React.ReactNode;
+**children?: (childrenProps: ChildrenProps<T>) => React.ReactNode**
 
 ```js
 <ReactBigList children={({pageSize, ...rest}) => <div>Big List</div>}>
@@ -31,11 +31,11 @@ Array of all your records
 
 Function accepting ChildrenProps and returning React Node.
 
-> paginationProps?: PaginationProps - { pageSize: number }
+**paginationProps?: PaginationProps - { pageSize: number }**
 
 Pagination props object containing size of rendered pages.
 
-> sortProps?: SortProps
+**sortProps?: SortProps**
 
 ```js
 type SortProps<T> = TableSortProps<T> | ListSortProps<T>;
@@ -53,7 +53,7 @@ type SortFunction<T extends any> = (member: T) => T;
 
 SortFunction maps object before sort is applied. Can be used to map unsortable objects to some sortable values.
 
-> customFilterProps?: CustomFilterProps
+**customFilterProps?: CustomFilterProps**
 
 ```js
 type CustomFilterProps = {
@@ -65,23 +65,23 @@ type FilterFunction<T> = (member: T) => boolean;
 
 FilterFunction takes a member and returns a boolean whether member should be in filtered collection.
 
-> initialPageNumber?: number
+**initialPageNumber?: number**
 
 Initial pagination page number to be rendered.
 
-> initialQueryString?: string
+**initialQueryString?: string**
 
 Initial queryString to be used with filtering on initial render.
 
-> initialActiveFilters?: string[]
+**initialActiveFilters?: string[]**
 
 List of initially active filters.
 
-> initialSortDirection?: 'asc' | 'desc'
+**initialSortDirection?: 'asc' | 'desc'**
 
 Initial sort direction.
 
-> persistanceId?: string
+**persistanceId?: string**
 
 Unique identifier to be used for data persistance between remounts.
 
@@ -131,78 +131,78 @@ type BigListConfig<T> = {
 
 ## Props passed to children
 
-> displayedMembers: T[]
+**displayedMembers: T[]**
 
 Array of currently displayed members.
 
-> filteredMembers: T[]
+**filteredMembers: T[]**
 
 Array of members that came through filters - before pagination is applied.
 
-> setPageNumber: (pageNumber: number) => void
+**setPageNumber: (pageNumber: number) => void**
 
 Sets current pagination page number.
 
-> setQueryString: (queryString: string) => void
+**setQueryString: (queryString: string) => void**
 
 Sets queryString.
 
-> queryString: string
+**queryString: string**
 
 Query string.
 
-> activeFilters: string[]
+**activeFilters: string[]**
 
 Array of active custom filters.
 
-> toggleFilter: (filter: string) => void;
+**toggleFilter: (filter: string) => void**
 
 Toggles filter off/on by name.
 
-> clearFilters() => void
+**clearFilters() => void**
 
 Turns off all custom filters.
 
-> setSort: (sortColumn?: string) => void
+**setSort: (sortColumn?: string) => void**
 
 This toggles sort by columnName.
 
-> sortDirection?: 'asc' | 'desc';
+**sortDirection?: 'asc' | 'desc'**
 
 Sort direction applied.
 
-> sortColumn: string
+**sortColumn: string**
 
 Name of the column being sorted by.
 
-> activePage: number
+**activePage: number**
 
 Currently active page.
 
-> displayingFrom: number
+**displayingFrom: number**
 
 Start of pagination slice e.g. 50 in 50-70.
 
-> displayingTo: number;
+**displayingTo: number**
 
 End of pagination slice e.g. 70 in 50-70.
 
-> initialCount: number
+**initialCount: number**
 
 Length of members array passed in.
 
-> filteredCount: number
+**filteredCount: number**
 
 Length of filteredMembers array.
 
-> displayedCount: number
+**displayedCount: number**
 
 Length of displayedMembers array. Number of currently displayed members.
 
-> numPages: number
+**numPages: number**
 
 Number of pages in your collection.
 
-> pageSize: number
+**pageSize: number**
 
 Size of one page - number of elements to be rendered on one page.
