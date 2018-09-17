@@ -7,11 +7,11 @@ In these API docs, a higher-order component (HOC) refers to a function that acce
 - [Components](#components)
   - [`ReactBigList`](#react-big-list)
 - [Higher-order components](#higher-order-components)
-
   - [`asBigList()`](#as-big-list)
   - [`withBigListConfig()`](#with-big-list-config)
   - [`withPageSize()`](#with-page-size)
   - [`withCustomFilters()`](#with-custom-filters)
+- [Props passed to children](#props-children)
 
 ## Components
 
@@ -117,6 +117,8 @@ const WithCustomFilters = withCustomFilters(ReactBigList, {
 });
 ```
 
+###### Config options
+
 ```js
 type BigListConfig<T> = {
   pageSize?: number,
@@ -126,3 +128,81 @@ type BigListConfig<T> = {
   sortFunction?: ListSortProps<T>,
 };
 ```
+
+## Props passed to children
+
+> displayedMembers: T[]
+
+Array of currently displayed members.
+
+> filteredMembers: T[]
+
+Array of members that came through filters - before pagination is applied.
+
+> setPageNumber: (pageNumber: number) => void
+
+Sets current pagination page number.
+
+> setQueryString: (queryString: string) => void
+
+Sets queryString.
+
+> queryString: string
+
+Query string.
+
+> activeFilters: string[]
+
+Array of active custom filters.
+
+> toggleFilter: (filter: string) => void;
+
+Toggles filter off/on by name.
+
+> clearFilters() => void
+
+Turns off all custom filters.
+
+> setSort: (sortColumn?: string) => void
+
+This toggles sort by columnName.
+
+> sortDirection?: 'asc' | 'desc';
+
+Sort direction applied.
+
+> sortColumn: string
+
+Name of the column being sorted by.
+
+> activePage: number
+
+Currently active page.
+
+> displayingFrom: number
+
+Start of pagination slice e.g. 50 in 50-70.
+
+> displayingTo: number;
+
+End of pagination slice e.g. 70 in 50-70.
+
+> initialCount: number
+
+Length of members array passed in.
+
+> filteredCount: number
+
+Length of filteredMembers array.
+
+> displayedCount: number
+
+Length of displayedMembers array. Number of currently displayed members.
+
+> numPages: number
+
+Number of pages in your collection.
+
+> pageSize: number
+
+Size of one page - number of elements to be rendered on one page.

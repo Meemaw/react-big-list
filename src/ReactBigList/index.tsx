@@ -16,7 +16,7 @@ type State<T> = {
   activeFilters: string[];
   displayedCount: number;
   slicedMembers: T[];
-  filteredUsers: T[];
+  filteredMembers: T[];
   numPages: number;
   displayingFrom: number;
   displayingTo: number;
@@ -54,7 +54,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
         sortDirection: this.props.initialSortDirection,
         sortColumn: undefined,
         slicedMembers: [],
-        filteredUsers: [],
+        filteredMembers: [],
         filteredCount: 0,
         displayedCount: 0,
         numPages: 1,
@@ -155,12 +155,12 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   };
 
   relistify(members: T[]): void {
-    let filteredUsers = this._sort(members);
-    filteredUsers = this._queryStringFilter(filteredUsers);
-    filteredUsers = this._customFilter(filteredUsers);
+    let filteredMembers = this._sort(members);
+    filteredMembers = this._queryStringFilter(filteredMembers);
+    filteredMembers = this._customFilter(filteredMembers);
 
     const { slicedMembers, numPages, displayingFrom, displayingTo, activePage } = this._paginate(
-      filteredUsers,
+      filteredMembers,
     );
 
     this.setState({
@@ -170,8 +170,8 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       displayingFrom,
       displayingTo,
       activePage,
-      filteredUsers,
-      filteredCount: filteredUsers.length,
+      filteredMembers,
+      filteredCount: filteredMembers.length,
     });
   }
 
@@ -221,7 +221,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       displayingTo,
       filteredCount,
-      filteredUsers,
+      filteredMembers,
     } = this.state;
 
     return children!({
@@ -235,7 +235,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       filteredCount,
       queryString,
-      filteredUsers,
+      filteredMembers,
       displayedMembers: slicedMembers,
       displayedCount: slicedMembers.length,
       setPageNumber: this.setPageNumber,

@@ -62,7 +62,7 @@ export interface PaginationData extends PaginationProps {
 
 export interface ChildrenProps<T> extends PaginationData {
   displayedMembers: T[];
-  filteredUsers: T[];
+  filteredMembers: T[];
   setPageNumber: (pageNumber: number) => void;
   setQueryString: (queryString: string) => void;
   queryString: string;
