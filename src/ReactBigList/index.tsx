@@ -16,6 +16,7 @@ type State<T> = {
   activeFilters: string[];
   displayedCount: number;
   slicedMembers: T[];
+  filteredUsers: T[];
   numPages: number;
   displayingFrom: number;
   displayingTo: number;
@@ -53,6 +54,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
         sortDirection: this.props.initialSortDirection,
         sortColumn: undefined,
         slicedMembers: [],
+        filteredUsers: [],
         filteredCount: 0,
         displayedCount: 0,
         numPages: 1,
@@ -153,12 +155,12 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
   };
 
   relistify(members: T[]): void {
-    let modifiedMembers = this._sort(members);
-    modifiedMembers = this._queryStringFilter(modifiedMembers);
-    modifiedMembers = this._customFilter(modifiedMembers);
+    let filteredUsers = this._sort(members);
+    filteredUsers = this._queryStringFilter(filteredUsers);
+    filteredUsers = this._customFilter(filteredUsers);
 
     const { slicedMembers, numPages, displayingFrom, displayingTo, activePage } = this._paginate(
-      modifiedMembers,
+      filteredUsers,
     );
 
     this.setState({
@@ -168,7 +170,8 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       displayingFrom,
       displayingTo,
       activePage,
-      filteredCount: modifiedMembers.length,
+      filteredUsers,
+      filteredCount: filteredUsers.length,
     });
   }
 
@@ -218,6 +221,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       displayingTo,
       filteredCount,
+      filteredUsers,
     } = this.state;
 
     return children!({
@@ -231,6 +235,7 @@ class ReactBigList<T> extends React.Component<ListifyProps<T>, State<T>> {
       activePage,
       filteredCount,
       queryString,
+      filteredUsers,
       displayedMembers: slicedMembers,
       displayedCount: slicedMembers.length,
       setPageNumber: this.setPageNumber,

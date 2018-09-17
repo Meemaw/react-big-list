@@ -7,21 +7,32 @@ import {
   CustomFilterProps,
   HOC,
   ListifyProps,
+  ListSortProps,
   PaginationProps,
+  QueryStringFilter,
+  TableSortProps,
 } from '../types';
 
-interface Options<T> {
+export interface BigListConfig<T> {
   pageSize?: number;
   filterMap?: CustomFilterMap<T>;
+  queryStringFilter?: QueryStringFilter<T>;
+  sortFunctionMap?: TableSortProps<T>;
+  sortFunction?: ListSortProps<T>;
 }
 
 export function asBigList<P extends ChildrenProps<any>, S>(
   WrappedComponent: HOC<P, S>,
-  options?: Options<any>,
+  config?: BigListConfig<any>,
 ) {
-  const actualOptions = options || {};
+  const actualOptions = config || {};
   const paginationProps: PaginationProps = { pageSize: actualOptions.pageSize };
   const customFilterProps: CustomFilterProps<any> = { filterMap: actualOptions.filterMap };
+  const queryStringFilter = actualOptions.queryStringFilter;
+
+  const sortProps = actualOptions.sortFunctionMap
+    ? { sortFunctionMap: actualOptions.sortFunctionMap }
+    : { sortFunction: actualOptions.sortFunction };
 
   const hoc = class AsBigList extends React.Component<ListifyProps<any>, S> {
     render() {
@@ -30,6 +41,8 @@ export function asBigList<P extends ChildrenProps<any>, S>(
         <ReactBigList
           paginationProps={paginationProps}
           customFilterProps={customFilterProps}
+          queryStringFilter={queryStringFilter}
+          sortProps={sortProps}
           {...props}
         >
           {bigListProps => <WrappedComponent {...props} {...bigListProps} />}

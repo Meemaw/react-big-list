@@ -8,7 +8,6 @@ import {
   PaginationProps,
   QueryStringFilter,
   SortDirection,
-  SortFunction,
   SortProps,
   TableSortProps,
 } from '../types';
@@ -90,31 +89,27 @@ export function sort<T>(
   }
 
   let sortFunction = null;
-  if (sortProps) {
-    if ('sortFunctionMap' in sortProps!) {
-      if (!sortColumn) {
-        return members;
-      }
-      sortFunction = (sortProps as TableSortProps<T>).sortFunctionMap![sortColumn];
+  if (sortProps && 'sortFunctionMap' in sortProps) {
+    if (!sortColumn) {
+      return members;
+    }
+    sortFunction = (sortProps as TableSortProps<T>).sortFunctionMap![sortColumn];
 
-      sortFunction = !sortFunction
-        ? objectFieldSortFunction(sortColumn)
-        : objectFieldCustomSortFunction(sortColumn, sortFunction);
-    } else {
-      sortFunction = (sortProps as ListSortProps<T>).sortFunction;
-      if (!sortFunction) {
-        if (_ofStringOrNumber(members)) {
-          sortFunction = baseSortFunction;
-        } else if (sortColumn) {
-          sortFunction = objectFieldSortFunction(sortColumn);
-        } else {
-          return members;
-        }
-      }
+    if (!sortFunction) {
+      sortFunction = objectFieldSortFunction(sortColumn);
     }
   } else {
-    sortFunction = baseSortFunction;
+    if (sortProps && 'sortFunction' in sortProps) {
+      sortFunction = (sortProps as ListSortProps<T>).sortFunction;
+    } else if (_ofStringOrNumber(members)) {
+      sortFunction = baseSortFunction;
+    } else if (sortColumn) {
+      sortFunction = objectFieldSortFunction(sortColumn);
+    } else {
+      return members;
+    }
   }
+
   const sorted = orderBy(members, [sortFunction], [sortDirection]);
   if (sortCache) {
     sortCache[cacheKey] = sorted;
@@ -159,7 +154,7 @@ export function applyFilters<T>(
 
   return activeFilters.reduce((accMembers, filterName) => {
     const filterFunction: FilterFunction<T> = filterMap[filterName];
-    return filterFunction ? filterFunction(accMembers) : accMembers;
+    return filterFunction ? accMembers.filter(filterFunction) : accMembers;
   }, members);
 }
 
@@ -187,13 +182,6 @@ function objectFieldSortFunction<T extends any>(column: string) {
 function baseFilterFunction<T extends any>(member: T, queryString: string): boolean {
   const actualValue = typeof member === 'string' ? member : member.toString();
   return actualValue.toLowerCase().includes(queryString.toLowerCase());
-}
-
-function objectFieldCustomSortFunction<T extends any>(
-  column: string,
-  sortFunction: SortFunction<T>,
-) {
-  return (member: T) => sortFunction(delve(member, column));
 }
 
 function delve(

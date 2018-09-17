@@ -2,16 +2,19 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 
 import ReactBigList from '../src';
-import { asBigList } from '../src/hocs';
+import { withBigListConfig } from '../src/hocs';
 import assertWithTimeout from './utils/assertWithTimeout';
 
 const TestComponent = _ => {
   return <div>DummyComponent</div>;
 };
 
-describe('asBigList', () => {
+describe('withBigList', () => {
   test('Passes props', done => {
-    const Enhanced = asBigList(TestComponent);
+    const Enhanced = withBigListConfig({
+      pageSize: 10,
+    })(TestComponent);
+
     const members = [1, 2, 3];
 
     const wrapper = mount(<Enhanced members={members} />);

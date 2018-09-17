@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { SortFunction } from '..';
 import { sort } from '../src/utils';
 import { NUMBERS, OBJECTS, STRINGS } from './data';
@@ -41,6 +43,36 @@ describe('sort', () => {
 
   test('Correctly uses the cache', () => {
     expect(sort(STRINGS, 'asc', undefined, undefined, { 'asc-': ['Random'] })).toEqual(['Random']);
+  });
+
+  test('Sort objects by column and direction', () => {
+    const members = [{ name: 'Matthew' }, { name: 'Andrew' }, { name: 'Dan' }];
+    expect(sort(members, 'asc', 'name')).toEqual([
+      { name: 'Andrew' },
+      { name: 'Dan' },
+      { name: 'Matthew' },
+    ]);
+  });
+
+  test('Sort objects by customSortMap', () => {
+    const threeDaysAgo = moment().subtract(3, 'days');
+    const today = moment();
+    const dayAgo = moment().subtract(1, 'days');
+    const matthew = { name: 'Matthew', created: threeDaysAgo, account: { notes: 'a' } };
+    const andrew = { name: 'Andrew', created: today, account: { notes: 'd' } };
+    const dan = { name: 'Dan', created: dayAgo, account: { notes: 'b' } };
+    const members = [matthew, andrew, dan];
+
+    const sortProps = {
+      sortFunctionMap: {
+        notes: user => user.account.notes,
+      },
+    };
+
+    expect(sort(members, 'asc', 'name', sortProps)).toEqual([andrew, dan, matthew]);
+    expect(sort(members, 'asc', 'created', sortProps)).toEqual([matthew, dan, andrew]);
+    expect(sort(members, 'asc', 'account.notes', sortProps)).toEqual([matthew, dan, andrew]);
+    expect(sort(members, 'asc', 'notes', sortProps)).toEqual([matthew, dan, andrew]);
   });
 
   test('Correctly saves into cache', () => {

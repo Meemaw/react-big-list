@@ -64,6 +64,7 @@ describe('ReactBigList', () => {
         activeFilters: [],
         activePage: 1,
         displayedCount: STRINGS.length,
+        filteredUsers: STRINGS,
         displayingFrom: 1,
         displayedMembers: STRINGS,
         initialCount: STRINGS.length,
@@ -103,6 +104,7 @@ describe('ReactBigList', () => {
       expect(data).toEqual({
         sortColumn: undefined,
         sortDirection: undefined,
+        filteredUsers: STRINGS,
         activeFilters: [],
         initialCount: 6,
         numPages: 3,
@@ -125,6 +127,7 @@ describe('ReactBigList', () => {
       const data: any = removePassedFunctions(childrenSpy.getCall(2).args[0]);
       expect(data).toEqual({
         activeFilters: [],
+        filteredUsers: ['azz', 'b', 'deee', 'e', 'g', 'z'],
         activePage: 1,
         displayedCount: 6,
         displayingFrom: 1,
@@ -159,6 +162,7 @@ describe('ReactBigList', () => {
         initialCount: 6,
         numPages: 2,
         displayingFrom: 4,
+        filteredUsers: ['azz', 'b', 'deee', 'e', 'g', 'z'],
         displayingTo: 6,
         activePage: 2,
         filteredCount: 6,

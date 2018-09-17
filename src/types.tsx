@@ -38,7 +38,7 @@ export interface CustomFilterProps<T> {
   filterMap?: CustomFilterMap<T>;
 }
 
-export type FilterFunction<T> = (members: T[]) => T[];
+export type FilterFunction<T> = (member: T) => boolean;
 
 export type SortFunction<T extends any> = (member: T) => T;
 
@@ -64,6 +64,7 @@ export interface PaginationData extends PaginationProps {
 
 export interface ChildrenProps<T> extends PaginationData {
   displayedMembers: T[];
+  filteredUsers: T[];
   setPageNumber: (pageNumber: number) => void;
   setQueryString: (queryString: string) => void;
   queryString: string;

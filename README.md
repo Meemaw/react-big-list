@@ -43,6 +43,8 @@
 
 React Big List is smart wrapper component for handling large collections on client-side.
 
+[Full API documentation](https://github.com/Meemaw/react-big-list/tree/master/docs/API.md)
+
 ### [Features][features]
 
 - Sorting
@@ -96,6 +98,19 @@ render() {
 }
 ```
 
+###### [As HOC][hoc]
+
+```javascript static
+import { withBigListConfig } from 'react-big-list';
+
+const MyBigList = withBigListConfig({
+  pageSize: 10,
+  queryStringFilter: (member, queryString) => member.name.length > queryString.length,
+})(ListComponent);
+
+export default MyBigList;
+```
+
 ### [Installation][installation]
 
 Install it from npm and include it in your React build process (using [Webpack](http://webpack.github.io/), [Browserify](http://browserify.org/), etc).
@@ -124,6 +139,7 @@ yarn test
 [installation]: https://github.com/Meemaw/react-big-list#installation
 [testing]: https://github.com/Meemaw/react-big-list#testing
 [usage]: https://github.com/Meemaw/react-big-list#usage
+[hoc]: https://github.com/Meemaw/react-big-list#hoc
 [playground]: https://github.com/Meemaw/react-big-list#playground
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [contributors]: https://github.com/Meemaw/react-big-list#contributors
