@@ -11,7 +11,7 @@ In these API docs, a higher-order component (HOC) refers to a function that acce
   - [`withBigListConfig()`](#with-big-list-config)
   - [`withPageSize()`](#with-page-size)
   - [`withCustomFilters()`](#with-custom-filters)
-- [Props passed to children](#props-children)
+- [Props passed to children](#props-passed-to-children)
 
 ## Components
 
